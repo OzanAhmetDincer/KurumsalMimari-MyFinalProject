@@ -1,8 +1,9 @@
-﻿using Entities.Abstract;
+﻿using Core.Entities;
 using System.Linq.Expressions;
 
-namespace DataAccess.Abstract
+namespace Core.DataAccess
 {
+    // "IEntityRepository" interface'i DataAccess katmanındaydı. Daha düzgün bir sistem kurmak için Core katmanına taşıdık. Her entity için yaptığımız ortak metotları ve içerisine yazdığımız database ve parametreleri bu katmana taşıdık. Başka bir zaman farklı projelerde veritabanı işlemlerimizi yapacağımız zaman data katmanın da tek tek her class için bu metotları yazıp zaman kaybetmiyecez, uğraşmayacaz. Bu metotları da generic hale getirdik
     //generic constrait: "where T :  class" ile T'nin her veri tipinde değer almasını engelleriz. İstenilen tipi yazarız
     // class: referans tip anlamında
     // IEntity: IEntity olabilir yada IEntity implamente eden bir nesne olabilir. Yani her referans tipli değişkeni yazmamızı engeler. Ne tür de referans vereceğimizi belirttik
