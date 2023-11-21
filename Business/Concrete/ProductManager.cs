@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -16,14 +20,23 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             // Business code yazılır sonra eklemeyi yaptırırız.
 
-            if (product.ProductName.Length < 2)
+            // Eski hali. Bu kodu daha kullanışlı hale ValidationTool.cs de getirdik.
+            /*var context = new ValidationContext<Product>(product);
+            ProductValidator productValidator = new ProductValidator();
+            var result = productValidator.Validate(context);
+            if (!result.IsValid)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
+                throw new ValidationException(result.Errors);
+            }*/
+
+            // Yukarıda ki kodları yeni class oluşturup aşağıdaki gibi tek satır kod haline getirmiştik. Bu koduda attribute haline getirip "Add" metodunun üstüne yazarak kullanabilecek hale getirdik
+            // ValidationTool.Validate(new ProductValidator(), product);
+
             _productDal.Add(product);
             //return new Result(true,"Ürün eklendi.");
             return new SuccessResult(Messages.ProductAdded);

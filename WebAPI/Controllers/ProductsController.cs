@@ -1,6 +1,4 @@
 ﻿using Business.Abstract;
-using Business.Concrete;
-using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +9,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        // Loosely coupled
+        // Loosely coupled(Gevşek bağlılık)
         // naming convention
         // IoC Container -- Inversion of Control
         IProductService _productService;
